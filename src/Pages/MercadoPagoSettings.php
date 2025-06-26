@@ -8,7 +8,8 @@ use BoreiStudio\FilamentMercadoPago\Services\MercadoPagoService;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Actions\Action as FormAction;    // Acción para formularios
+use Filament\Pages\Actions\Action as PageAction;                // Acción para header y página
 use Filament\Notifications\Notification;
 
 class MercadoPagoSettings extends Page implements Forms\Contracts\HasForms
@@ -50,7 +51,6 @@ class MercadoPagoSettings extends Page implements Forms\Contracts\HasForms
             $this->expires_at = $carbon->translatedFormat('l j \d\e F, H:i'); // Ej: Domingo 7 de diciembre, 13:41
             $this->expires_in = $carbon->diffForHumans(null, true); // Ej: "5 months, 27 days"
         }
-
     }
 
     protected function getFormSchema(): array
@@ -70,7 +70,7 @@ class MercadoPagoSettings extends Page implements Forms\Contracts\HasForms
                         ->label('Public Key')
                         ->readOnly()
                         ->suffixAction(
-                            Action::make('copiar')
+                            FormAction::make('copiar')
                                 ->icon('heroicon-o-clipboard')
                                 ->action(function (MercadoPagoSettings $livewire) {
                                     $livewire->js('navigator.clipboard.writeText("' . $livewire->public_key . '")');
@@ -82,7 +82,7 @@ class MercadoPagoSettings extends Page implements Forms\Contracts\HasForms
                         ->label('Access Token')
                         ->password()
                         ->suffixAction(
-                            Action::make('copiar')
+                            FormAction::make('copiar')
                                 ->icon('heroicon-o-clipboard')
                                 ->tooltip('Copiar Access Token')
                                 ->form([
@@ -131,7 +131,7 @@ class MercadoPagoSettings extends Page implements Forms\Contracts\HasForms
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('conectar_mercado_pago')
+            PageAction::make('conectar_mercado_pago')
                 ->label('Conectar Mercado Pago')
                 ->url(route('mercadopago.connect'))
                 ->openUrlInNewTab(),
