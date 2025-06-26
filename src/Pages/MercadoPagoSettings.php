@@ -127,4 +127,14 @@ class MercadoPagoSettings extends Page implements Forms\Contracts\HasForms
                 ])->columns(2)
         ];
     }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('conectar_mercado_pago')
+                ->label('Conectar Mercado Pago')
+                ->url(route('mercadopago.connect'))
+                ->openUrlInNewTab(),
+        ];
+    }
 }
