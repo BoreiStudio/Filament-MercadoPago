@@ -1,0 +1,28 @@
+{
+    "name": "boreistudio/filament-mercado-pago",
+    "description": "Seamless Mercado Pago integration",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BoreiStudio\\FilamentMercadoPago\\": "src/"
+        },
+        "files": [
+            "src/Helpers/MercadoPagoHelper.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BoreiStudio\\FilamentMercadoPago\\FilamentMercadoPagoServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Borei Studio"
+        }
+    ],
+    "require": {
+        "mercadopago/dx-php": "^3.5"
+    }
+}
