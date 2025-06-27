@@ -13,11 +13,24 @@ return new class extends Migration
     {
         Schema::create('mercado_pago_stores', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index(); // para manejar multiusuario
+
             $table->string('external_id')->unique(); // ID de MP
             $table->string('name');
-            $table->string('location')->nullable(); // podés expandir esto a una tabla relacionada si necesitás más info
+
+            // Datos de ubicación
+            $table->string('street_name')->nullable();
+            $table->string('street_number')->nullable();
+            $table->string('city_name')->nullable();
+            $table->string('state_name')->nullable();
+            $table->string('reference')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
+
+            // Horarios comerciales como JSON
+            $table->json('business_hours')->nullable();
+
             $table->boolean('active')->default(true);
+
             $table->timestamps();
         });
     }

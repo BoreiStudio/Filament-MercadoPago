@@ -4,7 +4,7 @@ namespace BoreiStudio\FilamentMercadoPago\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Plan extends Model
+class MercadoPagoPlan extends Model
 {
     protected $table = 'mp_plans'; // podés cambiar el nombre de la tabla
 

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use BoreiStudio\FilamentMercadoPago\Models\MercadoPagoAccount;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
+use Exception;
 
 class MercadoPagoService
 {
@@ -36,7 +37,6 @@ class MercadoPagoService
 
         $data = $response->json();
 
-        // Acá lo relacionás con el usuario logueado (si aplica)
         Auth::user()->update([
             'mp_access_token' => $data['access_token'],
             'mp_refresh_token' => $data['refresh_token'],
@@ -49,51 +49,38 @@ class MercadoPagoService
     public function getCredentials(int $userId = null): ?array
     {
         $userId = $userId ?? Auth::id();
-
-        if (!$userId) {
-            return null;
-        }
+        if (! $userId) return null;
 
         $account = MercadoPagoAccount::where('user_id', $userId)->first();
-
-        if (!$account) {
-            return null;
-        }
+        if (! $account) return null;
 
         try {
-            $accessToken = Crypt::decryptString($account->access_token);
-            $publicKey = isset($account->public_key) ? Crypt::decryptString($account->public_key) : null;
-        } catch (\Exception $e) {
-            // Log the error, but don't expose sensitive info
+            return [
+                'access_token'  => Crypt::decryptString($account->access_token),
+                'refresh_token' => $account->refresh_token,
+                'public_key'    => isset($account->public_key) ? Crypt::decryptString($account->public_key) : null,
+                'scope'         => $account->scope,
+                'user_id_mp'    => $account->user_id_mp,
+                'expires_in'    => $account->expires_in,
+            ];
+        } catch (Exception $e) {
             Log::error('Error desencriptando credenciales de Mercado Pago: ' . $e->getMessage());
             return null;
         }
-
-        return [
-            'access_token'  => $accessToken,
-            'refresh_token' => $account->refresh_token,
-            'public_key'    => $publicKey,
-            'scope'         => $account->scope,
-            'user_id_mp'    => $account->user_id_mp,
-            'expires_in'    => $account->expires_in,
-        ];
     }
 
     public function getAccessToken(int $userId = null): ?string
     {
-        $credentials = $this->getCredentials($userId);
-        return $credentials['access_token'] ?? null;
+        return $this->getCredentials($userId)['access_token'] ?? null;
     }
 
     public function getPublicKey(int $userId = null): ?string
     {
-        $credentials = $this->getCredentials($userId);
-        return $credentials['public_key'] ?? null;
+        return $this->getCredentials($userId)['public_key'] ?? null;
     }
 
     public function getRefreshToken(int $userId = null): ?string
     {
-        $credentials = $this->getCredentials($userId);
-        return $credentials['refresh_token'] ?? null;
+        return $this->getCredentials($userId)['refresh_token'] ?? null;
     }
 }

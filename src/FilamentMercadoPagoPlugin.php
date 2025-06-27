@@ -7,6 +7,7 @@ use BoreiStudio\FilamentMercadoPago\Resources\PlanResource;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use BoreiStudio\FilamentMercadoPago\Resources\StoreResource;
+use BoreiStudio\FilamentMercadoPago\Resources\TerminalResource;
 
 class FilamentMercadoPagoPlugin implements Plugin
 {
@@ -33,6 +34,7 @@ class FilamentMercadoPagoPlugin implements Plugin
         ->resources([
             PlanResource::class,
             StoreResource::class,
+            TerminalResource::class,
         ]);
     }
 

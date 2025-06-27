@@ -2,20 +2,19 @@
 
 namespace BoreiStudio\FilamentMercadoPago\Resources;
 
-use BoreiStudio\FilamentMercadoPago\Models\Plan;
+use BoreiStudio\FilamentMercadoPago\Models\MercadoPagoPlan;
 use BoreiStudio\FilamentMercadoPago\Resources\PlanResource\Pages;
+use BoreiStudio\FilamentMercadoPago\Services\MercadoPagoPlanService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Actions;
-use Illuminate\Support\Facades\Http;
-use BoreiStudio\FilamentMercadoPago\Helpers\MercadoPagoHelper;
 
 class PlanResource extends Resource
 {
-    protected static ?string $model = Plan::class;
+    protected static ?string $model = MercadoPagoPlan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-path';
 
@@ -74,74 +73,30 @@ class PlanResource extends Resource
             ->actions([
                 Actions\EditAction::make(),
                 Actions\DeleteAction::make(),
-
                 Actions\Action::make('syncWithMercadoPago')
-    ->label('Sincronizar')
-    ->icon('heroicon-o-arrow-path')
-    ->color('primary')
-    ->requiresConfirmation()
-    ->action(function ($record) {
-        $accessToken = MercadoPagoHelper::getAccessTokenForUser($record->user_id ?? auth()->id());
+                    ->label('Sincronizar')
+                    ->icon('heroicon-o-arrow-path')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->action(function ($record) {
+                        $service = app(MercadoPagoPlanService::class);
 
-        if (!$accessToken) {
-            throw new \Exception('No se encontró un access_token para este usuario.');
-        }
+                        try {
+                            $plan = $service->syncPlan($record, $record->user_id ?? auth()->id());
 
-        $autoRecurring = [
-            'frequency' => $record->frequency,
-            'frequency_type' => $record->frequency_type,
-            'transaction_amount' => (float) $record->amount,
-            'currency_id' => $record->currency,
-        ];
-
-        if (($record->repetitions ?? 0) >= 1) {
-            $autoRecurring['repetitions'] = (int) $record->repetitions;
-        }
-
-        $payload = [
-            'reason' => $record->name,
-            'back_url' => config('app.url') . '/checkout/success',
-            'auto_recurring' => $autoRecurring,
-        ];
-
-        $endpointBase = 'https://api.mercadopago.com/preapproval_plan';
-
-        if ($record->external_id) {
-            // Actualizar plan existente
-            $endpoint = $endpointBase . '/' . $record->external_id;
-            $response = Http::withToken($accessToken)
-                ->put($endpoint, $payload);
-        } else {
-            // Crear plan nuevo
-            $endpoint = $endpointBase;
-            $response = Http::withToken($accessToken)
-                ->post($endpoint, $payload);
-        }
-
-        \Log::debug('MP - Enviando payload a Mercado Pago', [
-            'access_token' => $accessToken,
-            'endpoint' => $endpoint,
-            'payload' => $payload,
-        ]);
-
-        \Log::debug('MP - Respuesta de Mercado Pago', [
-            'status' => $response->status(),
-            'body' => $response->body(),
-        ]);
-
-        if ($response->failed()) {
-            throw new \Exception('Error al sincronizar el plan: ' . $response->body());
-        }
-
-        $record->external_id = $response['id'] ?? $record->external_id;
-        $record->save();
-
-        \Filament\Notifications\Notification::make()
-            ->title('Plan sincronizado')
-            ->success()
-            ->body("Plan sincronizado en Mercado Pago con ID: {$record->external_id}")
-            ->send();
-    }),
+                            \Filament\Notifications\Notification::make()
+                                ->title('Plan sincronizado')
+                                ->success()
+                                ->body("Plan sincronizado en Mercado Pago con ID: {$plan->external_id}")
+                                ->send();
+                        } catch (\Exception $e) {
+                            \Filament\Notifications\Notification::make()
+                                ->title('Error al sincronizar')
+                                ->danger()
+                                ->body($e->getMessage())
+                                ->send();
+                        }
+                    }),
 
             ])
             ->bulkActions([
