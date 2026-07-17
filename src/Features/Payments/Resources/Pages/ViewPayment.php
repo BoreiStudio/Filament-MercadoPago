@@ -124,6 +124,7 @@ class ViewPayment extends ViewRecord
                 ->label('Resincronizar')
                 ->icon('heroicon-o-arrow-path')
                 ->action(function (SyncPaymentFromApiAction $action) {
+                    /** @var Payment $record */
                     $record = $this->getRecord();
 
                     try {

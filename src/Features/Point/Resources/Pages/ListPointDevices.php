@@ -4,6 +4,7 @@ namespace BoreiStudio\FilamentMercadoPago\Features\Point\Resources\Pages;
 
 use BoreiStudio\FilamentMercadoPago\Contracts\CredentialResolverInterface;
 use BoreiStudio\FilamentMercadoPago\Features\Point\Models\PointDevice;
+use BoreiStudio\FilamentMercadoPago\Features\Point\Resources\PointDeviceResource;
 use BoreiStudio\FilamentMercadoPago\Models\MercadoPagoAccount;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
@@ -16,7 +17,7 @@ use MercadoPago\Net\MPSearchRequest;
 
 class ListPointDevices extends ListRecords
 {
-    protected static string $resource = \BoreiStudio\FilamentMercadoPago\Features\Point\Resources\PointDeviceResource::class;
+    protected static string $resource = PointDeviceResource::class;
 
     public function table(Table $table): Table
     {

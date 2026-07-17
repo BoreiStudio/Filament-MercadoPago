@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property string $mp_store_id
+ * @property string|null $external_id
+ */
 class Store extends Model
 {
     protected $table = 'mercadopago_stores';

@@ -7,6 +7,11 @@ use BoreiStudio\FilamentMercadoPago\Models\MercadoPagoAccount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property string $device_id
+ * @property string|null $operating_mode
+ * @property string|null $status
+ */
 class PointDevice extends Model
 {
     protected $table = 'mercadopago_point_devices';

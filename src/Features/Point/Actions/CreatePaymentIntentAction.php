@@ -4,7 +4,6 @@ namespace BoreiStudio\FilamentMercadoPago\Features\Point\Actions;
 
 use BoreiStudio\FilamentMercadoPago\Contracts\CredentialResolverInterface;
 use BoreiStudio\FilamentMercadoPago\Features\Point\Models\PointDevice;
-use BoreiStudio\FilamentMercadoPago\Support\Http\MercadoPagoException;
 use MercadoPago\Client\Point\PointClient;
 use MercadoPago\MercadoPagoConfig;
 
@@ -32,10 +31,6 @@ class CreatePaymentIntentAction
                 'description' => $externalReference ?? 'Cobro Point',
             ]
         );
-
-        if (! $intent) {
-            throw new MercadoPagoException('No se pudo crear la intención de pago.');
-        }
 
         return [
             'payment_intent_id' => $intent->id,

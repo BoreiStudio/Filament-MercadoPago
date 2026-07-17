@@ -3,6 +3,7 @@
 namespace BoreiStudio\FilamentMercadoPago\Features\Point\Resources\Pages;
 
 use BoreiStudio\FilamentMercadoPago\Contracts\CredentialResolverInterface;
+use BoreiStudio\FilamentMercadoPago\Features\Point\Models\PointDevice;
 use BoreiStudio\FilamentMercadoPago\Features\Point\Resources\PointDeviceResource;
 use BoreiStudio\FilamentMercadoPago\Features\Pos\Models\PosTerminal;
 use Filament\Actions\Action;
@@ -49,6 +50,7 @@ class ViewPointDevice extends ViewRecord
 
     protected function getHeaderActions(): array
     {
+        /** @var PointDevice $record */
         $record = $this->getRecord();
 
         return [
