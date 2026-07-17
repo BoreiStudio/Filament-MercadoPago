@@ -46,7 +46,7 @@ class CreatePreferenceAction
         $preference = $client->createPreference($preferenceData);
 
         $payment = Payment::create([
-            'account_id' => $account?->id ?? $this->resolveAccountId($credentials),
+            'account_id' => $account->id ?? $this->resolveAccountId($credentials),
             'preference_id' => $preference->id,
             'status' => 'pending',
             'transaction_amount' => array_sum(array_column($items, 'unit_price')),

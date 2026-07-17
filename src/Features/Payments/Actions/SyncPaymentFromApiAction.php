@@ -38,7 +38,7 @@ class SyncPaymentFromApiAction
                 'currency_id' => $mpPayment->currency_id ?? 'ARS',
                 'payment_type_id' => $mpPayment->payment_type_id ?? null,
                 'payment_method_id' => $mpPayment->payment_method_id ?? null,
-                'payer_email' => $mpPayment->payer?->email ?? null,
+                'payer_email' => $mpPayment->payer->email ?? null,
                 'external_reference' => $mpPayment->external_reference ?? null,
                 'paid_at' => $mpPayment->date_approved ?? $mpPayment->date_last_updated ?? now(),
                 'raw_payload' => json_decode(json_encode($mpPayment), true),

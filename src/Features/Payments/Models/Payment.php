@@ -6,6 +6,19 @@ use BoreiStudio\FilamentMercadoPago\Models\MercadoPagoAccount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property string $status
+ * @property float $transaction_amount
+ * @property string|null $mp_payment_id
+ * @property string|null $preference_id
+ * @property string|null $currency_id
+ * @property string|null $payment_type_id
+ * @property string|null $payment_method_id
+ * @property string|null $payer_email
+ * @property string|null $external_reference
+ * @property string|null $source
+ * @property int $account_id
+ */
 class Payment extends Model
 {
     protected $table = 'mercadopago_payments';
