@@ -1,0 +1,37 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    /* Override semantic colors with Filament's CSS variables */
+    .text-success-600 { color: var(--success-600, #16a34a); }
+    .text-success-400 { color: var(--success-400, #4ade80); }
+    .text-danger-600 { color: var(--danger-600, #dc2626); }
+    .text-danger-400 { color: var(--danger-400, #f87171); }
+    .text-gray-950 { color: var(--gray-950, #030712); }
+    .text-gray-500 { color: var(--gray-500, #6b7280); }
+    .text-gray-400 { color: var(--gray-400, #9ca3af); }
+
+    .bg-success-50 { background-color: var(--success-50, #f0fdf4); }
+    .bg-danger-50 { background-color: var(--danger-50, #fef2f2); }
+    .bg-danger-100 { background-color: var(--danger-100, #fee2e2); }
+    .bg-gray-100 { background-color: var(--gray-100, #f3f4f6); }
+    .bg-white { background-color: var(--white, #ffffff); }
+
+    .border-danger-200 { border-color: var(--danger-200, #fecaca); }
+    .border-gray-200 { border-color: var(--gray-200, #e5e7eb); }
+    .border-gray-300 { border-color: var(--gray-300, #d1d5db); }
+
+    .dark\:text-white:is(.dark *) { color: var(--white, #ffffff); }
+    .dark\:text-gray-400:is(.dark *) { color: var(--gray-400, #9ca3af); }
+    .dark\:text-gray-500:is(.dark *) { color: var(--gray-500, #6b7280); }
+    .dark\:text-success-400:is(.dark *) { color: var(--success-400, #4ade80); }
+    .dark\:text-danger-400:is(.dark *) { color: var(--danger-400, #f87171); }
+    .dark\:bg-gray-900:is(.dark *) { background-color: var(--gray-900, #111827); }
+    .dark\:border-gray-700:is(.dark *) { border-color: var(--gray-700, #374151); }
+    .dark\:bg-success-500\/10:is(.dark *) { background-color: color-mix(in srgb, var(--success-500, #22c55e) 10%, transparent); }
+    .dark\:bg-danger-500\/10:is(.dark *) { background-color: color-mix(in srgb, var(--danger-500, #ef4444) 10%, transparent); }
+    .dark\:bg-danger-500\/5:is(.dark *) { background-color: color-mix(in srgb, var(--danger-500, #ef4444) 5%, transparent); }
+    .dark\:border-danger-500\/20:is(.dark *) { border-color: color-mix(in srgb, var(--danger-500, #ef4444) 20%, transparent); }
+    .dark\:border-white\/10:is(.dark *) { border-color: color-mix(in srgb, var(--white, #ffffff) 10%, transparent); }
+    .dark\:bg-white\/5:is(.dark *) { background-color: color-mix(in srgb, var(--white, #ffffff) 5%, transparent); }
+}

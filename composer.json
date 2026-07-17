@@ -1,0 +1,48 @@
+{
+    "name": "boreistudio/filament-mercadopago",
+    "type": "library",
+    "description": "Filament plugin for Mercado Pago integration — Checkout Pro, Point, QR, OAuth, Webhooks",
+    "keywords": ["filament", "mercadopago", "laravel"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.3",
+        "filament/filament": "^5.0",
+        "mercadopago/dx-php": "^3.0",
+        "spatie/laravel-package-tools": "^1.16",
+        "spatie/laravel-settings": "^3.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^4.7",
+        "mockery/mockery": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "BoreiStudio\\FilamentMercadoPago\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BoreiStudio\\FilamentMercadoPago\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BoreiStudio\\FilamentMercadoPago\\MercadoPagoServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php -r \"! defined('ARTISAN_BINARY') && define('ARTISAN_BINARY', 'artisan'); chdir(dirname(__DIR__, 4)); ! is_file('artisan') || passthru('php artisan filament:assets --ansi 2>&1 || true');\""
+        ]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
