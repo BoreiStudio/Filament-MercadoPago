@@ -37,34 +37,32 @@ trait HasFeatureToggles
 
     protected ?string $navigationGroup = null;
 
-    public function payments(?bool $condition = null): static
+    public function payments(bool $condition = true): static
     {
-        if (func_num_args() === 0) {
-            return $this->hasPayments;
-        }
-
         $this->hasPayments = $condition;
 
         return $this;
     }
 
-    public function refunds(?bool $condition = null): static
+    public function isPaymentsEnabled(): bool
     {
-        if (func_num_args() === 0) {
-            return $this->hasRefunds;
-        }
+        return $this->hasPayments;
+    }
 
+    public function refunds(bool $condition = true): static
+    {
         $this->hasRefunds = $condition;
 
         return $this;
     }
 
-    public function point(?bool $condition = null): static
+    public function isRefundsEnabled(): bool
     {
-        if (func_num_args() === 0) {
-            return $this->hasPoint;
-        }
+        return $this->hasRefunds;
+    }
 
+    public function point(bool $condition = true): static
+    {
         $this->hasPoint = $condition;
 
         if ($condition) {
@@ -74,12 +72,13 @@ trait HasFeatureToggles
         return $this;
     }
 
-    public function qr(?bool $condition = null): static
+    public function isPointEnabled(): bool
     {
-        if (func_num_args() === 0) {
-            return $this->hasQr;
-        }
+        return $this->hasPoint;
+    }
 
+    public function qr(bool $condition = true): static
+    {
         $this->hasQr = $condition;
 
         if ($condition) {
@@ -89,48 +88,57 @@ trait HasFeatureToggles
         return $this;
     }
 
-    public function stores(?bool $condition = null): static
+    public function isQrEnabled(): bool
     {
-        if (func_num_args() === 0) {
-            return $this->hasStores;
-        }
+        return $this->hasQr;
+    }
 
+    public function stores(bool $condition = true): static
+    {
         $this->hasStores = $condition;
 
         return $this;
     }
 
-    public function documentation(?bool $condition = null): static
+    public function isStoresEnabled(): bool
     {
-        if (func_num_args() === 0) {
-            return $this->hasDocumentation;
-        }
+        return $this->hasStores;
+    }
 
+    public function documentation(bool $condition = true): static
+    {
         $this->hasDocumentation = $condition;
 
         return $this;
     }
 
-    public function dashboard(?bool $condition = null): static
+    public function isDocumentationEnabled(): bool
     {
-        if (func_num_args() === 0) {
-            return $this->hasDashboard;
-        }
+        return $this->hasDocumentation;
+    }
 
+    public function dashboard(bool $condition = true): static
+    {
         $this->hasDashboard = $condition;
 
         return $this;
     }
 
+    public function isDashboardEnabled(): bool
+    {
+        return $this->hasDashboard;
+    }
+
     public function navigationGroup(?string $group = null): static
     {
-        if (func_num_args() === 0) {
-            return $this->navigationGroup;
-        }
-
         $this->navigationGroup = $group;
 
         return $this;
+    }
+
+    public function getNavigationGroup(): ?string
+    {
+        return $this->navigationGroup;
     }
 
     protected function registerFeatures(Panel $panel): void

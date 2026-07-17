@@ -5,6 +5,19 @@ namespace BoreiStudio\FilamentMercadoPago\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $status
+ * @property string|null $access_token
+ * @property string|null $refresh_token
+ * @property string|null $public_key
+ * @property string|null $scope
+ * @property string|null $mp_user_id
+ * @property bool $live_mode
+ * @property \DateTimeImmutable|null $expires_at
+ * @property string|null $tenant_id
+ * @property string|null $tenant_type
+ * @property \DateTimeImmutable|null $last_refreshed_at
+ */
 class MercadoPagoAccount extends Model
 {
     protected $table = 'mercadopago_accounts';
