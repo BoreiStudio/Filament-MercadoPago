@@ -22,7 +22,14 @@ class MercadoPagoClient
     {
         $client = new PaymentClient;
 
-        return $client->get($mpPaymentId);
+        $payment = $client->get($mpPaymentId);
+
+        // @phpstan-ignore-next-line SDK may return null on network/timeout errors
+        if (! $payment) {
+            throw new MercadoPagoException("Payment [{$mpPaymentId}] not found in Mercado Pago.");
+        }
+
+        return $payment;
     }
 
     public function createPreference(array $data): Preference
@@ -46,6 +53,11 @@ class MercadoPagoClient
             $refund = $client->refund($mpPaymentId, $amount);
         } else {
             $refund = $client->refundTotal($mpPaymentId);
+        }
+
+        // @phpstan-ignore-next-line SDK may return null on network/timeout errors
+        if (! $refund) {
+            throw new MercadoPagoException("Failed to refund payment [{$mpPaymentId}].");
         }
 
         return (array) $refund;

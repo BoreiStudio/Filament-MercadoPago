@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property string $mp_store_id
  * @property string|null $external_id
+ * @property string $name
  */
 class Store extends Model
 {

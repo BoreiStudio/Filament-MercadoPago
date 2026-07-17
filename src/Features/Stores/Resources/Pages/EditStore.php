@@ -3,6 +3,7 @@
 namespace BoreiStudio\FilamentMercadoPago\Features\Stores\Resources\Pages;
 
 use BoreiStudio\FilamentMercadoPago\Contracts\CredentialResolverInterface;
+use BoreiStudio\FilamentMercadoPago\Features\Stores\Models\Store;
 use BoreiStudio\FilamentMercadoPago\Features\Stores\Resources\StoreResource;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
@@ -33,6 +34,7 @@ class EditStore extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        /** @var Store $record */
         $record = $this->getRecord();
 
         if ($record->mp_store_id) {
@@ -56,6 +58,7 @@ class EditStore extends EditRecord
                 ->label('Sincronizar desde MP')
                 ->icon('heroicon-o-arrow-path')
                 ->action(function () {
+                    /** @var Store $record */
                     $record = $this->getRecord();
                     $credentials = app(CredentialResolverInterface::class)->resolve();
 
@@ -83,6 +86,7 @@ class EditStore extends EditRecord
 
             DeleteAction::make()
                 ->before(function () {
+                    /** @var Store $record */
                     $record = $this->getRecord();
 
                     if ($record->mp_store_id) {

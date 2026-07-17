@@ -10,7 +10,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
@@ -21,7 +20,7 @@ use Filament\Support\Enums\Width;
 use Illuminate\Contracts\Support\Htmlable;
 
 /**
- * @property Form $form
+ * @property Schema $form
  */
 class MercadoPagoSettingsPage extends Page implements HasForms
 {

@@ -3,6 +3,7 @@
 namespace BoreiStudio\FilamentMercadoPago\Features\Pos\Resources\Pages;
 
 use BoreiStudio\FilamentMercadoPago\Contracts\CredentialResolverInterface;
+use BoreiStudio\FilamentMercadoPago\Features\Pos\Models\PosTerminal;
 use BoreiStudio\FilamentMercadoPago\Features\Pos\Resources\PosResource;
 use BoreiStudio\FilamentMercadoPago\Features\Stores\Models\Store;
 use Filament\Actions\Action;
@@ -53,6 +54,7 @@ class EditPos extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        /** @var PosTerminal $record */
         $record = $this->getRecord();
         $credentials = app(CredentialResolverInterface::class)->resolve();
 
@@ -86,6 +88,7 @@ class EditPos extends EditRecord
                 ->label('Sincronizar desde MP')
                 ->icon('heroicon-o-arrow-path')
                 ->action(function () {
+                    /** @var PosTerminal $record */
                     $record = $this->getRecord();
                     $credentials = app(CredentialResolverInterface::class)->resolve();
 
@@ -120,6 +123,7 @@ class EditPos extends EditRecord
 
             DeleteAction::make()
                 ->before(function () {
+                    /** @var PosTerminal $record */
                     $record = $this->getRecord();
 
                     if ($record->mp_pos_id) {

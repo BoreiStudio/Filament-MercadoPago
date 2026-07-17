@@ -41,10 +41,12 @@ class ManageQrCodes extends Page implements HasActions
     public function selectPos(int $posId): void
     {
         $this->selectedPos = PosTerminal::with('qrOrders')->find($posId);
-        $this->currentOrder = $this->selectedPos?->qrOrders()
+        /** @var QrOrder|null $order */
+        $order = $this->selectedPos?->qrOrders()
             ->where('status', 'opened')
             ->latest()
             ->first();
+        $this->currentOrder = $order;
     }
 
     public function getTitle(): string|Htmlable

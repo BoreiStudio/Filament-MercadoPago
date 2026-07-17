@@ -6,3 +6,6 @@ parameters:
         - src
 
     level: 5
+
+    ignoreErrors:
+        - '#Parameter \#1 \$view of method Filament\\Support\\Components\\ViewComponent::view\(\) expects view-string\|null, string given#'

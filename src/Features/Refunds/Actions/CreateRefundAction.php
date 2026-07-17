@@ -36,7 +36,13 @@ class CreateRefundAction
         $credentials = $this->credentialResolver->resolve();
         $client = $this->client ?? new MercadoPagoClient($credentials);
 
-        $mpRefund = $client->createRefund($payment->mp_payment_id, $amount);
+        $mpPaymentId = $payment->mp_payment_id;
+
+        if ($mpPaymentId === null) {
+            throw new \RuntimeException('El pago no tiene un ID de Mercado Pago asociado.');
+        }
+
+        $mpRefund = $client->createRefund((int) $mpPaymentId, $amount);
 
         $refundedAmount = $amount ?? (float) $payment->transaction_amount;
 
