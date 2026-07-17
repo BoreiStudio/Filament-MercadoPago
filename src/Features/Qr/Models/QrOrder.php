@@ -7,6 +7,11 @@ use BoreiStudio\FilamentMercadoPago\Models\MercadoPagoAccount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property string $mp_order_id
+ * @property string $status
+ * @property string|null $external_reference
+ */
 class QrOrder extends Model
 {
     protected $table = 'mercadopago_qr_orders';

@@ -9,6 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $store_id
+ * @property string|null $mp_pos_id
+ * @property string $name
+ * @property string|null $external_id
+ * @property bool $fixed_amount
+ * @property string|null $category
+ * @property string|null $qr_image_url
+ */
 class PosTerminal extends Model
 {
     protected $table = 'mercadopago_pos';

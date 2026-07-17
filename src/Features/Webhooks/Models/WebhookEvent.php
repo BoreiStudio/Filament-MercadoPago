@@ -6,6 +6,14 @@ use BoreiStudio\FilamentMercadoPago\Models\MercadoPagoAccount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property string|null $topic
+ * @property string|null $mp_resource_id
+ * @property string $raw_payload
+ * @property string $status
+ * @property bool $signature_valid
+ * @property string|null $error
+ */
 class WebhookEvent extends Model
 {
     protected $table = 'mercadopago_webhook_events';

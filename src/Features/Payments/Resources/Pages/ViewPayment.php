@@ -128,7 +128,7 @@ class ViewPayment extends ViewRecord
                     $record = $this->getRecord();
 
                     try {
-                        $action->execute($record->mp_payment_id);
+                        $action->execute((int) $record->mp_payment_id);
                         $this->refreshFormData(['status', 'status_detail', 'raw_payload', 'paid_at']);
 
                         Notification::make()

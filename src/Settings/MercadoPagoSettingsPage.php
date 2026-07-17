@@ -10,6 +10,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
@@ -19,6 +20,9 @@ use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\Support\Htmlable;
 
+/**
+ * @property Form $form
+ */
 class MercadoPagoSettingsPage extends Page implements HasForms
 {
     use InteractsWithForms;
@@ -54,10 +58,10 @@ class MercadoPagoSettingsPage extends Page implements HasForms
             'client_secret' => $settings->client_secret ?? '',
             'public_key' => $settings->public_key ?? '',
             'access_token' => $settings->access_token ?? '',
-            'country' => $settings->country ?? 'MLA',
+            'country' => $settings->country ?: 'MLA',
             'redirect_uri' => config('app.url').'/mercadopago/oauth/callback',
             'webhook_secret' => $settings->webhook_secret ?? '',
-            'sandbox_mode' => $settings->sandbox_mode ?? false,
+            'sandbox_mode' => $settings->sandbox_mode,
         ]);
     }
 

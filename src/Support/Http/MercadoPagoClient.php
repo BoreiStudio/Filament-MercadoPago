@@ -22,13 +22,7 @@ class MercadoPagoClient
     {
         $client = new PaymentClient;
 
-        $payment = $client->get($mpPaymentId);
-
-        if (! $payment) {
-            throw new MercadoPagoException("Payment [{$mpPaymentId}] not found in Mercado Pago.");
-        }
-
-        return $payment;
+        return $client->get($mpPaymentId);
     }
 
     public function createPreference(array $data): Preference
@@ -52,10 +46,6 @@ class MercadoPagoClient
             $refund = $client->refund($mpPaymentId, $amount);
         } else {
             $refund = $client->refundTotal($mpPaymentId);
-        }
-
-        if (! $refund) {
-            throw new MercadoPagoException("Failed to refund payment [{$mpPaymentId}].");
         }
 
         return (array) $refund;

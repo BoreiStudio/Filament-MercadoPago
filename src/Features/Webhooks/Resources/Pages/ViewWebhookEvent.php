@@ -3,6 +3,7 @@
 namespace BoreiStudio\FilamentMercadoPago\Features\Webhooks\Resources\Pages;
 
 use BoreiStudio\FilamentMercadoPago\Features\Webhooks\Jobs\ProcessPaymentWebhookJob;
+use BoreiStudio\FilamentMercadoPago\Features\Webhooks\Models\WebhookEvent;
 use BoreiStudio\FilamentMercadoPago\Features\Webhooks\Resources\WebhookEventResource;
 use Filament\Actions\Action;
 use Filament\Infolists\Components\TextEntry;
@@ -78,6 +79,7 @@ class ViewWebhookEvent extends ViewRecord
                 ->icon('heroicon-o-arrow-path')
                 ->color('warning')
                 ->action(function () {
+                    /** @var WebhookEvent $record */
                     $record = $this->getRecord();
 
                     dispatch(new ProcessPaymentWebhookJob($record));

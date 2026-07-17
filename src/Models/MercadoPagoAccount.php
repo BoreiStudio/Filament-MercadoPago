@@ -4,6 +4,7 @@ namespace BoreiStudio\FilamentMercadoPago\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * @property string $status
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $scope
  * @property string|null $mp_user_id
  * @property bool $live_mode
- * @property \DateTimeImmutable|null $expires_at
+ * @property Carbon|null $expires_at
  * @property string|null $tenant_id
  * @property string|null $tenant_type
  * @property \DateTimeImmutable|null $last_refreshed_at
