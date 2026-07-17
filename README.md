@@ -4,7 +4,7 @@ A Filament v5 plugin that integrates Mercado Pago payments into your Laravel app
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.2+
 - Laravel 11+ / 12+
 - Filament 5.x
 

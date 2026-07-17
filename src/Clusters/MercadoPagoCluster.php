@@ -7,8 +7,6 @@ use Filament\Pages\Enums\SubNavigationPosition;
 
 class MercadoPagoCluster extends Cluster
 {
-   
-
     public static function getNavigationLabel(): string
     {
         return __('filament-mercadopago::messages.navigation.mp_group');
